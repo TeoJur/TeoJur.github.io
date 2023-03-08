@@ -51,7 +51,7 @@
             continuousWorld: false,
             worldCopyJump: false, 
             zoomControl:true, maxZoom:14, minZoom:7
-        }).fitBounds([[43.15371648960888,5.283000463456625],[43.27940014607455,5.577968514545414]]);
+        })
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -69,6 +69,10 @@
         .className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+            map.setMaxBounds(map.getBounds());
         }
         function pop__0(feature, layer) {
             var popupContent = '<table>\
@@ -94,7 +98,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(225,89,137,0.0)',
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane__0');
@@ -102,7 +106,7 @@
         map.getPane('pane__0').style['mix-blend-mode'] = 'normal';
         var layer__0 = new L.geoJson(json__0, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json__0',
             layerName: 'layer__0',
             pane: 'pane__0',
@@ -195,7 +199,7 @@
                         <td colspan="2">' + (feature.properties['Zone'] !== null ? autolinker.link(feature.properties['Zone'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2"><strong>etiq_x</strong><br />' + (feature.properties['etiq_x'] !== null ? autolinker.link(feature.properties['etiq_x'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['etiq_x'] !== null ? autolinker.link(feature.properties['etiq_x'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['etiqu_y'] !== null ? autolinker.link(feature.properties['etiqu_y'].toLocaleString()) : '') + '</td>\
