@@ -1,0 +1,11 @@
+.right-bar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 37px;
+  height: 	100%; /* ajustez cette valeur selon vos besoins */
+  background-color: #FFFFFF; /* définissez la couleur de fond de votre bandeau */
+  border-top: 0px solid #ccc; /* ajoutez une bordure supérieure si nécessaire */
+  z-index:995
+}

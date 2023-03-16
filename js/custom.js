@@ -1,0 +1,1 @@
+var map = L.map('map').setView(map.getCenter(), 10);

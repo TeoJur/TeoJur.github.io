@@ -1,0 +1,11 @@
+.side-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 57px;
+  height: 	100%; /* ajustez cette valeur selon vos besoins */
+  background-color: #FFFFFF; /* définissez la couleur de fond de votre bandeau */
+  border-top: 0px solid #ccc; /* ajoutez une bordure supérieure si nécessaire */
+  z-index:995
+}

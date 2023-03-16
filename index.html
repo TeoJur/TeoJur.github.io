@@ -10,7 +10,10 @@
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
         <link rel="stylesheet" href="css/leaflet-search.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
-  	<link rel="stylesheet" type="text/css" href="logo.css">
+		<link rel="stylesheet" type="text/css" href="bottom-bar.css">
+		<link rel="stylesheet" type="text/css" href="side-bar.css">
+		<link rel="stylesheet" type="text/css" href="right-bar.css">
+		<link rel="stylesheet" type="text/css" href="logo.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -19,13 +22,17 @@
             margin: 0;
         }
         </style>
-        <title>Zones de concentration en déchets abandonnés diffus dans le PnCal</title>
+   <title>Zones de concentration en déchets abandonnés diffus dans le PnCal</title>
     </head>
     <body>
 	<h2 style="text-align:center; color:#1951a0;">Zones de concentration en déchets abandonnés diffus dans le Parc national des Calanques</h2s>
-	<h5 style="text-align:right; position: absolute; bottom: 0px; right: 20px; z-index: 999;"">MerTerre, 2023 | Sources : MerTerre, PnCal, contributeurs ReMed Zéro Plastique, IGN</h5>
-	<img src="images/MerTerre_logo.png" alt="LogoMT" style="position: absolute; bottom: -13px; left: 0px; z-index: 999;">
-	<img src="images/logo_auto-productions_pnCal_quadri_txt_bleu.png" alt="LogoPnCal" class="logo" style="position: absolute; bottom: 10px; left: 150px; z-index: 999;">
+	<h5 style="text-align:right; position: absolute; bottom: 8px; right: 20px; z-index: 999;">MerTerre, 2023 | Sources : MerTerre, PnCal, contributeurs ReMed Zéro Plastique, IGN</h5>
+	<img src="images/MerTerre_logo.png" alt="LogoMT" style="position: absolute; bottom: 0px; left: 0px; z-index: 999;">
+	<img src="images/logo_auto-productions_pnCal_quadri_txt_bleu.png" alt="LogoPnCal" class="logo" style="position: absolute; bottom: 25px; left: 150px; z-index: 999;">
+       
+		<div class="bottom-bar"></div>
+		<div class="side-bar"></div>
+		<div class="right-bar"></div>
         <div id="map">
         </div>
         <script src="js/qgis2web_expressions.js"></script>
@@ -41,11 +48,12 @@
         <script src="js/proj4.js"></script>
         <script src="js/proj4leaflet.js"></script>
         <script src="js/leaflet-search.js"></script>
-        <script src="data/PrimtrePnCal_1.js"></script>
-        <script src="data/Secteurlargedudiagnostic_2.js"></script>
-        <script src="data/Zonelocaledudiagnostic_3.js"></script>
-        <script src="data/Zonededchetsdiffuse_4.js"></script>
-        <script src="data/Zonededchetsponctuelle_5.js"></script>
+        <script src="data/Etendue_0.js"></script>
+        <script src="data/PrimtrePnCal_2.js"></script>
+        <script src="data/Secteurlargedudiagnostic_3.js"></script>
+        <script src="data/Zonelocaledudiagnostic_4.js"></script>
+        <script src="data/Zonededchetsdiffuse_5.js"></script>
+        <script src="data/Zonededchetsponctuelle_6.js"></script>
         <script>
         var crs = new L.Proj.CRS('EPSG:2154', '+proj=lcc +lat_0=46.5 +lon_0=3 +lat_1=49 +lat_2=44 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs', {
             resolutions: [2800, 1400, 700, 350, 175, 84, 42, 21, 11.2, 5.6, 2.8, 1.4, 0.7, 0.35, 0.14, 0.07],
@@ -55,6 +63,13 @@
             continuousWorld: false,
             worldCopyJump: false, 
             zoomControl:true, maxZoom:14, minZoom:7
+			
+			
+			
+			
+
+			
+			
         })
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
@@ -66,28 +81,74 @@
             primaryAreaUnit: 'sqmeters',
             secondaryAreaUnit: 'hectares'
         });
-        measureControl.addTo(map);
+                measureControl.addTo(map);
         document.getElementsByClassName('leaflet-control-measure-toggle')[0]
         .innerHTML = '';
         document.getElementsByClassName('leaflet-control-measure-toggle')[0]
         .className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
-            if (bounds_group.getLayers().length) {
-                map.fitBounds(bounds_group.getBounds());
-            }
-            map.setMaxBounds(map.getBounds());
+          if (bounds_group.getLayers().length) 
+		 {
+             map.fitBounds(bounds_group.getBounds()); 
+          }
+	map.setMaxBounds(map.getBounds()); 
+
+ map.fitBounds(bounds_group.getBounds()); 
+
+
         }
-        map.createPane('pane_CartetopoSC25_0');
-        map.getPane('pane_CartetopoSC25_0').style.zIndex = 400;
-        var img_CartetopoSC25_0 = 'data/CartetopoSC25_0.png';
-        var img_bounds_CartetopoSC25_0 = [[43.1505706262993,5.2259],[43.311960309858186,5.6535]];
-        var layer_CartetopoSC25_0 = new L.imageOverlay(img_CartetopoSC25_0,
-                                              img_bounds_CartetopoSC25_0,
-                                              {pane: 'pane_CartetopoSC25_0'});
-        bounds_group.addLayer(layer_CartetopoSC25_0);
-        map.addLayer(layer_CartetopoSC25_0);
-        function pop_PrimtrePnCal_1(feature, layer) {
+        function pop_Etendue_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['texte'] !== null ? autolinker.link(feature.properties['texte'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Etendue_0_0() {
+            return {
+                pane: 'pane_Etendue_0',
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Etendue_0');
+        map.getPane('pane_Etendue_0').style.zIndex = 400;
+        map.getPane('pane_Etendue_0').style['mix-blend-mode'] = 'normal';
+        var layer_Etendue_0 = new L.geoJson(json_Etendue_0, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Etendue_0',
+            layerName: 'layer_Etendue_0',
+            pane: 'pane_Etendue_0',
+            onEachFeature: pop_Etendue_0,
+            style: style_Etendue_0_0,
+        });
+        bounds_group.addLayer(layer_Etendue_0);
+        map.addLayer(layer_Etendue_0);
+        map.createPane('pane_CartetopoSC25_1');
+        map.getPane('pane_CartetopoSC25_1').style.zIndex = 401;
+        var img_CartetopoSC25_1 = 'data/CartetopoSC25_1.png';
+        var img_bounds_CartetopoSC25_1 = [[43.1505706262993,5.2259],[43.311960309858186,5.6535]];
+        var layer_CartetopoSC25_1 = new L.imageOverlay(img_CartetopoSC25_1,
+                                              img_bounds_CartetopoSC25_1,
+                                              {pane: 'pane_CartetopoSC25_1'});
+        bounds_group.addLayer(layer_CartetopoSC25_1);
+        map.addLayer(layer_CartetopoSC25_1);
+        function pop_PrimtrePnCal_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['zone'] !== null ? autolinker.link(feature.properties['zone'].toLocaleString()) : '') + '</td>\
@@ -96,11 +157,11 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_PrimtrePnCal_1_0(feature) {
+        function style_PrimtrePnCal_2_0(feature) {
             switch(String(feature.properties['zone'])) {
                 case 'Périmètre du PnCal : Aire d\'adhésion':
                     return {
-                pane: 'pane_PrimtrePnCal_1',
+                pane: 'pane_PrimtrePnCal_2',
                 stroke: false, 
                 fill: true,
                 fillOpacity: 1,
@@ -110,7 +171,7 @@
                     break;
                 case 'Périmètre du PnCal : Aire maritime adjacente':
                     return {
-                pane: 'pane_PrimtrePnCal_1',
+                pane: 'pane_PrimtrePnCal_2',
                 stroke: false, 
                 fill: true,
                 fillOpacity: 1,
@@ -120,7 +181,7 @@
                     break;
                 case 'Périmètre du PnCal : Coeur marin':
                     return {
-                pane: 'pane_PrimtrePnCal_1',
+                pane: 'pane_PrimtrePnCal_2',
                 stroke: false, 
                 fill: true,
                 fillOpacity: 1,
@@ -130,7 +191,7 @@
                     break;
                 case 'Périmètre du PnCal : Coeur terrestre':
                     return {
-                pane: 'pane_PrimtrePnCal_1',
+                pane: 'pane_PrimtrePnCal_2',
                 stroke: false, 
                 fill: true,
                 fillOpacity: 1,
@@ -140,21 +201,21 @@
                     break;
             }
         }
-        map.createPane('pane_PrimtrePnCal_1');
-        map.getPane('pane_PrimtrePnCal_1').style.zIndex = 401;
-        map.getPane('pane_PrimtrePnCal_1').style['mix-blend-mode'] = 'normal';
-        var layer_PrimtrePnCal_1 = new L.geoJson(json_PrimtrePnCal_1, {
+        map.createPane('pane_PrimtrePnCal_2');
+        map.getPane('pane_PrimtrePnCal_2').style.zIndex = 402;
+        map.getPane('pane_PrimtrePnCal_2').style['mix-blend-mode'] = 'normal';
+        var layer_PrimtrePnCal_2 = new L.geoJson(json_PrimtrePnCal_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_PrimtrePnCal_1',
-            layerName: 'layer_PrimtrePnCal_1',
-            pane: 'pane_PrimtrePnCal_1',
-            onEachFeature: pop_PrimtrePnCal_1,
-            style: style_PrimtrePnCal_1_0,
+            dataVar: 'json_PrimtrePnCal_2',
+            layerName: 'layer_PrimtrePnCal_2',
+            pane: 'pane_PrimtrePnCal_2',
+            onEachFeature: pop_PrimtrePnCal_2,
+            style: style_PrimtrePnCal_2_0,
         });
-        bounds_group.addLayer(layer_PrimtrePnCal_1);
-        map.addLayer(layer_PrimtrePnCal_1);
-        function pop_Secteurlargedudiagnostic_2(feature, layer) {
+        bounds_group.addLayer(layer_PrimtrePnCal_2);
+        map.addLayer(layer_PrimtrePnCal_2);
+        function pop_Secteurlargedudiagnostic_3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
@@ -172,9 +233,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Secteurlargedudiagnostic_2_0() {
+        function style_Secteurlargedudiagnostic_3_0() {
             return {
-                pane: 'pane_Secteurlargedudiagnostic_2',
+                pane: 'pane_Secteurlargedudiagnostic_3',
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
@@ -185,21 +246,21 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Secteurlargedudiagnostic_2');
-        map.getPane('pane_Secteurlargedudiagnostic_2').style.zIndex = 402;
-        map.getPane('pane_Secteurlargedudiagnostic_2').style['mix-blend-mode'] = 'normal';
-        var layer_Secteurlargedudiagnostic_2 = new L.geoJson(json_Secteurlargedudiagnostic_2, {
+        map.createPane('pane_Secteurlargedudiagnostic_3');
+        map.getPane('pane_Secteurlargedudiagnostic_3').style.zIndex = 403;
+        map.getPane('pane_Secteurlargedudiagnostic_3').style['mix-blend-mode'] = 'normal';
+        var layer_Secteurlargedudiagnostic_3 = new L.geoJson(json_Secteurlargedudiagnostic_3, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Secteurlargedudiagnostic_2',
-            layerName: 'layer_Secteurlargedudiagnostic_2',
-            pane: 'pane_Secteurlargedudiagnostic_2',
-            onEachFeature: pop_Secteurlargedudiagnostic_2,
-            style: style_Secteurlargedudiagnostic_2_0,
+            dataVar: 'json_Secteurlargedudiagnostic_3',
+            layerName: 'layer_Secteurlargedudiagnostic_3',
+            pane: 'pane_Secteurlargedudiagnostic_3',
+            onEachFeature: pop_Secteurlargedudiagnostic_3,
+            style: style_Secteurlargedudiagnostic_3_0,
         });
-        bounds_group.addLayer(layer_Secteurlargedudiagnostic_2);
-        map.addLayer(layer_Secteurlargedudiagnostic_2);
-        function pop_Zonelocaledudiagnostic_3(feature, layer) {
+        bounds_group.addLayer(layer_Secteurlargedudiagnostic_3);
+        map.addLayer(layer_Secteurlargedudiagnostic_3);
+        function pop_Zonelocaledudiagnostic_4(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['Zone_large'] !== null ? autolinker.link(feature.properties['Zone_large'].toLocaleString()) : '') + '</td>\
@@ -211,9 +272,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Zonelocaledudiagnostic_3_0() {
+        function style_Zonelocaledudiagnostic_4_0() {
             return {
-                pane: 'pane_Zonelocaledudiagnostic_3',
+                pane: 'pane_Zonelocaledudiagnostic_4',
                 opacity: 1,
                 color: 'rgba(77,77,77,1.0)',
                 dashArray: '',
@@ -226,38 +287,41 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Zonelocaledudiagnostic_3');
-        map.getPane('pane_Zonelocaledudiagnostic_3').style.zIndex = 403;
-        map.getPane('pane_Zonelocaledudiagnostic_3').style['mix-blend-mode'] = 'normal';
-        var layer_Zonelocaledudiagnostic_3 = new L.geoJson(json_Zonelocaledudiagnostic_3, {
+        map.createPane('pane_Zonelocaledudiagnostic_4');
+        map.getPane('pane_Zonelocaledudiagnostic_4').style.zIndex = 404;
+        map.getPane('pane_Zonelocaledudiagnostic_4').style['mix-blend-mode'] = 'normal';
+        var layer_Zonelocaledudiagnostic_4 = new L.geoJson(json_Zonelocaledudiagnostic_4, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Zonelocaledudiagnostic_3',
-            layerName: 'layer_Zonelocaledudiagnostic_3',
-            pane: 'pane_Zonelocaledudiagnostic_3',
-            onEachFeature: pop_Zonelocaledudiagnostic_3,
-            style: style_Zonelocaledudiagnostic_3_0,
+            dataVar: 'json_Zonelocaledudiagnostic_4',
+            layerName: 'layer_Zonelocaledudiagnostic_4',
+            pane: 'pane_Zonelocaledudiagnostic_4',
+            onEachFeature: pop_Zonelocaledudiagnostic_4,
+            style: style_Zonelocaledudiagnostic_4_0,
         });
-        bounds_group.addLayer(layer_Zonelocaledudiagnostic_3);
-        map.addLayer(layer_Zonelocaledudiagnostic_3);
-        function pop_Zonededchetsdiffuse_4(feature, layer) {
+        bounds_group.addLayer(layer_Zonelocaledudiagnostic_4);
+        map.addLayer(layer_Zonelocaledudiagnostic_4);
+        function pop_Zonededchetsdiffuse_5(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">ID :</th>\
+                        <td>' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['orig'] !== null ? autolinker.link(feature.properties['orig'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Pression :</th>\
+                        <td>' + (feature.properties['orig'] !== null ? autolinker.link(feature.properties['orig'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['comm'] !== null ? autolinker.link(feature.properties['comm'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Commentaire :</th>\
+                        <td>' + (feature.properties['comm'] !== null ? autolinker.link(feature.properties['comm'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Zonededchetsdiffuse_4_0() {
+        function style_Zonededchetsdiffuse_5_0() {
             return {
-                pane: 'pane_Zonededchetsdiffuse_4',
+                pane: 'pane_Zonededchetsdiffuse_5',
                 opacity: 1,
                 color: 'rgba(35,35,35,0.3)',
                 dashArray: '',
@@ -270,46 +334,51 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Zonededchetsdiffuse_4');
-        map.getPane('pane_Zonededchetsdiffuse_4').style.zIndex = 404;
-        map.getPane('pane_Zonededchetsdiffuse_4').style['mix-blend-mode'] = 'normal';
-        var layer_Zonededchetsdiffuse_4 = new L.geoJson(json_Zonededchetsdiffuse_4, {
+        map.createPane('pane_Zonededchetsdiffuse_5');
+        map.getPane('pane_Zonededchetsdiffuse_5').style.zIndex = 405;
+        map.getPane('pane_Zonededchetsdiffuse_5').style['mix-blend-mode'] = 'normal';
+        var layer_Zonededchetsdiffuse_5 = new L.geoJson(json_Zonededchetsdiffuse_5, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Zonededchetsdiffuse_4',
-            layerName: 'layer_Zonededchetsdiffuse_4',
-            pane: 'pane_Zonededchetsdiffuse_4',
-            onEachFeature: pop_Zonededchetsdiffuse_4,
-            style: style_Zonededchetsdiffuse_4_0,
+            dataVar: 'json_Zonededchetsdiffuse_5',
+            layerName: 'layer_Zonededchetsdiffuse_5',
+            pane: 'pane_Zonededchetsdiffuse_5',
+            onEachFeature: pop_Zonededchetsdiffuse_5,
+            style: style_Zonededchetsdiffuse_5_0,
         });
-        bounds_group.addLayer(layer_Zonededchetsdiffuse_4);
-        map.addLayer(layer_Zonededchetsdiffuse_4);
-        function pop_Zonededchetsponctuelle_5(feature, layer) {
+        bounds_group.addLayer(layer_Zonededchetsdiffuse_5);
+        map.addLayer(layer_Zonededchetsdiffuse_5);
+        function pop_Zonededchetsponctuelle_6(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">ID :</th>\
+                        <td>' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['typ'] !== null ? autolinker.link(feature.properties['typ'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Type :</th>\
+                        <td>' + (feature.properties['typ'] !== null ? autolinker.link(feature.properties['typ'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['zon'] !== null ? autolinker.link(feature.properties['zon'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Zone de concentration :</th>\
+                        <td>' + (feature.properties['zon'] !== null ? autolinker.link(feature.properties['zon'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['org'] !== null ? autolinker.link(feature.properties['org'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Pression :</th>\
+                        <td>' + (feature.properties['org'] !== null ? autolinker.link(feature.properties['org'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['com'] !== null ? autolinker.link(feature.properties['com'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Commentaire :</th>\
+                        <td>' + (feature.properties['com'] !== null ? autolinker.link(feature.properties['com'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Zonededchetsponctuelle_5_0(feature) {
+        function style_Zonededchetsponctuelle_6_0(feature) {
             switch(String(feature.properties['typ'])) {
-                case 'Type : ZAP / ZAD':
+                case 'ZAP / ZAD':
                     return {
-                pane: 'pane_Zonededchetsponctuelle_5',
+                pane: 'pane_Zonededchetsponctuelle_6',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -323,9 +392,9 @@
                 interactive: true,
             }
                     break;
-                case 'Type : zone d\'abandon de déchets':
+                case 'zone d\'abandon de déchets':
                     return {
-                pane: 'pane_Zonededchetsponctuelle_5',
+                pane: 'pane_Zonededchetsponctuelle_6',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -339,9 +408,9 @@
                 interactive: true,
             }
                     break;
-                case 'Type : zone d\'accumulation préférentielle':
+                case 'zone d\'accumulation préférentielle':
                     return {
-                pane: 'pane_Zonededchetsponctuelle_5',
+                pane: 'pane_Zonededchetsponctuelle_6',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -357,31 +426,31 @@
                     break;
             }
         }
-        map.createPane('pane_Zonededchetsponctuelle_5');
-        map.getPane('pane_Zonededchetsponctuelle_5').style.zIndex = 405;
-        map.getPane('pane_Zonededchetsponctuelle_5').style['mix-blend-mode'] = 'normal';
-        var layer_Zonededchetsponctuelle_5 = new L.geoJson(json_Zonededchetsponctuelle_5, {
+        map.createPane('pane_Zonededchetsponctuelle_6');
+        map.getPane('pane_Zonededchetsponctuelle_6').style.zIndex = 406;
+        map.getPane('pane_Zonededchetsponctuelle_6').style['mix-blend-mode'] = 'normal';
+        var layer_Zonededchetsponctuelle_6 = new L.geoJson(json_Zonededchetsponctuelle_6, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Zonededchetsponctuelle_5',
-            layerName: 'layer_Zonededchetsponctuelle_5',
-            pane: 'pane_Zonededchetsponctuelle_5',
-            onEachFeature: pop_Zonededchetsponctuelle_5,
+            dataVar: 'json_Zonededchetsponctuelle_6',
+            layerName: 'layer_Zonededchetsponctuelle_6',
+            pane: 'pane_Zonededchetsponctuelle_6',
+            onEachFeature: pop_Zonededchetsponctuelle_6,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Zonededchetsponctuelle_5_0(feature));
+                return L.circleMarker(latlng, style_Zonededchetsponctuelle_6_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Zonededchetsponctuelle_5);
-        map.addLayer(layer_Zonededchetsponctuelle_5);
+        bounds_group.addLayer(layer_Zonededchetsponctuelle_6);
+        map.addLayer(layer_Zonededchetsponctuelle_6);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Zone de concentration :<br /><table><tr><td style="text-align: center;"><img src="legend/Zonededchetsponctuelle_5_TypeZAPZAD0.png" /></td><td>Type : ZAP + ZAD</td></tr><tr><td style="text-align: center;"><img src="legend/Zonededchetsponctuelle_5_Typezonedabandondedéchets1.png" /></td><td>Type : zone d\'abandon de déchets (ZAD)</td></tr><tr><td style="text-align: center;"><img src="legend/Zonededchetsponctuelle_5_Typezonedaccumulationpréférentielle2.png" /></td><td>Type : zone d\'accumulation préférentielle (ZAP)</td></tr></table>': layer_Zonededchetsponctuelle_5,'<img src="legend/Zonededchetsdiffuse_4.png" /> Zone de déchets diffuse': layer_Zonededchetsdiffuse_4,'<img src="legend/Zonelocaledudiagnostic_3.png" /> Zone locale du diagnostic': layer_Zonelocaledudiagnostic_3,'<img src="legend/Secteurlargedudiagnostic_2.png" /> Secteur large du diagnostic': layer_Secteurlargedudiagnostic_2,'Périmètre du Parc national des Calanques : <br /><table><tr><td style="text-align: center;"><img src="legend/PrimtrePnCal_1_PérimètreduPnCalAiredadhésion0.png" /></td><td>Aire d\'adhésion</td></tr><tr><td style="text-align: center;"><img src="legend/PrimtrePnCal_1_PérimètreduPnCalAiremaritimeadjacente1.png" /></td><td>Aire maritime adjacente</td></tr><tr><td style="text-align: center;"><img src="legend/PrimtrePnCal_1_PérimètreduPnCalCoeurmarin2.png" /></td><td>Cœur marin</td></tr><tr><td style="text-align: center;"><img src="legend/PrimtrePnCal_1_PérimètreduPnCalCoeurterrestre3.png" /></td><td>Cœur terrestre</td></tr></table>': layer_PrimtrePnCal_1,"Carte topo SC25": layer_CartetopoSC25_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'Zone de concentration :<br /><table><tr><td style="text-align: center;"><img src="legend/Zonededchetsponctuelle_6_TypeZAPZAD0.png" /></td><td>Type : ZAP + ZAD</td></tr><tr><td style="text-align: center;"><img src="legend/Zonededchetsponctuelle_6_Typezonedabandondedéchets1.png" /></td><td>Type : zone d\'abandon de déchets (ZAD)</td></tr><tr><td style="text-align: center;"><img src="legend/Zonededchetsponctuelle_6_Typezonedaccumulationpréférentielle2.png" /></td><td>Type : zone d\'accumulation préférentielle (ZAP)</td></tr></table>': layer_Zonededchetsponctuelle_6,'<img src="legend/Zonededchetsdiffuse_5.png" /> Zone de déchets diffus': layer_Zonededchetsdiffuse_5,'<img src="legend/Zonelocaledudiagnostic_4.png" /> Zone locale du diagnostic': layer_Zonelocaledudiagnostic_4,'<img src="legend/Secteurlargedudiagnostic_3.png" /> Secteur large du diagnostic': layer_Secteurlargedudiagnostic_3,' Périmètre du Parc national des Calanques :<br /><table><tr><td style="text-align: center;"><img src="legend/PrimtrePnCal_2_PérimètreduPnCalAiredadhésion0.png" /></td><td>Aire d\'adhésion</td></tr><tr><td style="text-align: center;"><img src="legend/PrimtrePnCal_2_PérimètreduPnCalAiremaritimeadjacente1.png" /></td><td>Aire maritime adjacente</td></tr><tr><td style="text-align: center;"><img src="legend/PrimtrePnCal_2_PérimètreduPnCalCoeurmarin2.png" /></td><td>Coeur marin</td></tr><tr><td style="text-align: center;"><img src="legend/PrimtrePnCal_2_PérimètreduPnCalCoeurterrestre3.png" /></td><td>Coeur terrestre</td></tr></table>': layer_PrimtrePnCal_2,"Carte topographique SC25": layer_CartetopoSC25_1,},{collapsed:false}).addTo(map);
         setBounds();
         map.addControl(new L.Control.Search({
-            layer: layer_Zonededchetsponctuelle_5,
+            layer: layer_Zonededchetsponctuelle_6,
             initial: false,
             hideMarkerOnCollapse: true,
             propertyName: 'id'}));
@@ -392,15 +461,15 @@
                 return this._bounds;
             }
         });
-        resetLabels([layer_Secteurlargedudiagnostic_2]);
+        resetLabels([layer_Secteurlargedudiagnostic_3]);
         map.on("zoomend", function(){
-            resetLabels([layer_Secteurlargedudiagnostic_2]);
+            resetLabels([layer_Secteurlargedudiagnostic_3]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_Secteurlargedudiagnostic_2]);
+            resetLabels([layer_Secteurlargedudiagnostic_3]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_Secteurlargedudiagnostic_2]);
+            resetLabels([layer_Secteurlargedudiagnostic_3]);
         });
         </script>
     </body>
